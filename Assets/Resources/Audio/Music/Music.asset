@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990b8da4deae47a683b728d4cce404bd, type: 3}
+  m_Name: Music
+  m_EditorClassIdentifier: 
+  m_Prefix: m_
+  m_AudioData:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues:
+    - Orignial
+    - Korobeiniki
+    - ChunkyMonky
+    - 8Bit
+    - PolishCow
+    _keys:
+    - Orignial
+    - Korobeiniki
+    - ChunkyMonky
+    - 8Bit
+    - PolishCow
+    _values:
+    - m_Volume: 1
+      m_AudioClip: {fileID: 8300000, guid: 1327823187d47d941be7c4643fd41a29, type: 3}
+    - m_Volume: 1
+      m_AudioClip: {fileID: 8300000, guid: e772a639eb6f68e4f89d63b1b77ccd44, type: 3}
+    - m_Volume: 1
+      m_AudioClip: {fileID: 8300000, guid: 19b64ffc99a48a64e8061aa40863b1ef, type: 3}
+    - m_Volume: 1
+      m_AudioClip: {fileID: 8300000, guid: cfaa653cae3e71a40b2d3ee869490687, type: 3}
+    - m_Volume: 1
+      m_AudioClip: {fileID: 8300000, guid: a5bc82033554df443a89c3a9343bd074, type: 3}
