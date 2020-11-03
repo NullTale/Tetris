@@ -1,0 +1,10 @@
+using Gamelogic.Extensions;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "$NameTileNodeLogic", menuName = "Tiles/$NameTileNodeLogic")]
+public class $NameTileNodeLogic : BaseTileNodeLogic
+{
+	override public void Apply(TileNode tileNode, MapBuildData mapBuildData)
+	{
+	}
+}

@@ -1,0 +1,17 @@
+{
+    "name": "PathFinding",
+    "references": [
+        "NaughtyAttributes.Core",
+        "ThreadNinja",
+        "Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

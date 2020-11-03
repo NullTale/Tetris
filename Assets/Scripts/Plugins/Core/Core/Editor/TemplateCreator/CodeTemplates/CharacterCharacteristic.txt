@@ -1,0 +1,9 @@
+using Gamelogic.Extensions;
+using System;
+
+
+public class $NameCharacterCharacteristic : CharacterCharacteristic
+{
+}
+
+

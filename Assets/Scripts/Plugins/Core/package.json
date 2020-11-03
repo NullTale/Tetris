@@ -1,0 +1,17 @@
+{
+  "name": "www.nulltale.core",
+  "displayName": "Core",
+  "version": "1.0.0",
+  "unity": "2020.1",
+  "description": "Personal core library",
+  "author": {
+    "name": "NullTale",
+    "email": "n12holwingshame@gmail.com",
+    "url": "https://twitter.com/nulltale"
+  },
+  "type": "library",
+  "dependencies": {
+    "com.unity.textmeshpro": ""
+  },
+  "hideInEditor": false
+}

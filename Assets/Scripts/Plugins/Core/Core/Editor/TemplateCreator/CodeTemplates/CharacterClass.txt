@@ -1,0 +1,11 @@
+using Gamelogic.Extensions;
+using UnityEngine;
+
+public class $NameCharacterClass : CharacterClass
+{
+	//////////////////////////////////////////////////////////////////////////	
+	public override bool IsValidSlot(CampSlot slot)
+	{
+		return false;
+	}
+}
