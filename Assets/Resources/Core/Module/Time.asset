@@ -12,14 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393c3483509869648a5bf9b5091528e1, type: 3}
   m_Name: Time
   m_EditorClassIdentifier: 
-  m_ControlPhysics: 1
-  m_CreateTimeController: 1
-  m_EnableKeyControls: 1
+  m_ControlPhysics: 0
+  m_CreateTimeController: 0
+  m_EnableKeyControls: 0
   m_InitialGameSpeed: 1
   m_GroupList:
-    array:
-    - m_Active: 1
-      m_Name: Effects
-      m_Index: 0
-      m_Method: 1
-      m_Behaviour: 3
+    array: []
