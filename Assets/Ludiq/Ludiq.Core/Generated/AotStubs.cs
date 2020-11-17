@@ -293,6 +293,10 @@ namespace Ludiq.Generated.Aot
 	// ImpulseEffectModule.op_Equality
 	// ImpulseEffectModule.op_Implicit
 	// ImpulseEffectModule.op_Inequality
+	// JoystickListener.JoystickConnected
+	// JoystickListener.op_Equality
+	// JoystickListener.op_Implicit
+	// JoystickListener.op_Inequality
 	// LevelCounter.op_Equality
 	// LevelCounter.op_Implicit
 	// LevelCounter.op_Inequality
@@ -419,6 +423,7 @@ namespace Ludiq.Generated.Aot
 	// UnityEngine.Animations.ScaleConstraint.op_Equality
 	// UnityEngine.Animations.ScaleConstraint.op_Implicit
 	// UnityEngine.Animations.ScaleConstraint.op_Inequality
+	// UnityEngine.Animator.GetBool
 	// UnityEngine.Animator.op_Equality
 	// UnityEngine.Animator.op_Implicit
 	// UnityEngine.Animator.op_Inequality
@@ -517,9 +522,11 @@ namespace Ludiq.Generated.Aot
 	// UnityEngine.EventSystems.BaseInput.op_Equality
 	// UnityEngine.EventSystems.BaseInput.op_Implicit
 	// UnityEngine.EventSystems.BaseInput.op_Inequality
+	// UnityEngine.EventSystems.EventSystem.current
 	// UnityEngine.EventSystems.EventSystem.op_Equality
 	// UnityEngine.EventSystems.EventSystem.op_Implicit
 	// UnityEngine.EventSystems.EventSystem.op_Inequality
+	// UnityEngine.EventSystems.EventSystem.SetSelectedGameObject
 	// UnityEngine.EventSystems.EventTrigger.op_Equality
 	// UnityEngine.EventSystems.EventTrigger.op_Implicit
 	// UnityEngine.EventSystems.EventTrigger.op_Inequality
@@ -4092,6 +4099,51 @@ namespace Ludiq.Generated.Aot
 			optimized.Invoke(default(object[]));
 		}
 		
+		// JoystickListener.JoystickConnected
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void JoystickListener_JoystickConnected()
+		{
+			bool accessor = global::JoystickListener.JoystickConnected;
+			global::Ludiq.StaticPropertyAccessor<bool> optimized = new global::Ludiq.StaticPropertyAccessor<bool>(default(global::System.Reflection.PropertyInfo));
+			optimized.GetValue(null);
+			optimized.SetValue(null, default(bool));
+		}
+		
+		// JoystickListener.op_Equality
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void JoystickListener_op_Equality()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			global::UnityEngine.Object arg1 = default(global::UnityEngine.Object);
+			bool @operator = (arg0 == arg1);
+			global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool> optimized = new global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0, arg1);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// JoystickListener.op_Implicit
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void JoystickListener_op_Implicit()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			bool conversion = ((bool)(arg0));
+			global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, bool> optimized = new global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// JoystickListener.op_Inequality
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void JoystickListener_op_Inequality()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			global::UnityEngine.Object arg1 = default(global::UnityEngine.Object);
+			bool @operator = (arg0 != arg1);
+			global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool> optimized = new global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0, arg1);
+			optimized.Invoke(default(object[]));
+		}
+		
 		// LevelCounter.op_Equality
 		[global::UnityEngine.Scripting.PreserveAttribute()]
 		public static void LevelCounter_op_Equality()
@@ -5565,6 +5617,18 @@ namespace Ludiq.Generated.Aot
 			optimized.Invoke(default(object[]));
 		}
 		
+		// UnityEngine.Animator.GetBool
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void UnityEngine_Animator_GetBool()
+		{
+			global::UnityEngine.Animator target = default(global::UnityEngine.Animator);
+			string arg0 = default(string);
+			target.GetBool(arg0);
+			global::Ludiq.InstanceFunctionInvoker<UnityEngine.Animator, string, bool> optimized = new global::Ludiq.InstanceFunctionInvoker<UnityEngine.Animator, string, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(default(global::UnityEngine.Animator), arg0);
+			optimized.Invoke(default(object[]));
+		}
+		
 		// UnityEngine.Animator.op_Equality
 		[global::UnityEngine.Scripting.PreserveAttribute()]
 		public static void UnityEngine_Animator_op_Equality()
@@ -6713,6 +6777,17 @@ namespace Ludiq.Generated.Aot
 			optimized.Invoke(default(object[]));
 		}
 		
+		// UnityEngine.EventSystems.EventSystem.current
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void UnityEngine_EventSystems_EventSystem_current()
+		{
+			global::UnityEngine.EventSystems.EventSystem accessor = global::UnityEngine.EventSystems.EventSystem.current;
+			global::UnityEngine.EventSystems.EventSystem.current = default(global::UnityEngine.EventSystems.EventSystem);
+			global::Ludiq.StaticPropertyAccessor<UnityEngine.EventSystems.EventSystem> optimized = new global::Ludiq.StaticPropertyAccessor<UnityEngine.EventSystems.EventSystem>(default(global::System.Reflection.PropertyInfo));
+			optimized.GetValue(null);
+			optimized.SetValue(null, default(global::UnityEngine.EventSystems.EventSystem));
+		}
+		
 		// UnityEngine.EventSystems.EventSystem.op_Equality
 		[global::UnityEngine.Scripting.PreserveAttribute()]
 		public static void UnityEngine_EventSystems_EventSystem_op_Equality()
@@ -6745,6 +6820,18 @@ namespace Ludiq.Generated.Aot
 			bool @operator = (arg0 != arg1);
 			global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool> optimized = new global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
 			optimized.Invoke(null, arg0, arg1);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// UnityEngine.EventSystems.EventSystem.SetSelectedGameObject
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void UnityEngine_EventSystems_EventSystem_SetSelectedGameObject()
+		{
+			global::UnityEngine.EventSystems.EventSystem target = default(global::UnityEngine.EventSystems.EventSystem);
+			global::UnityEngine.GameObject arg0 = default(global::UnityEngine.GameObject);
+			target.SetSelectedGameObject(arg0);
+			global::Ludiq.InstanceActionInvoker<UnityEngine.EventSystems.EventSystem, UnityEngine.GameObject> optimized = new global::Ludiq.InstanceActionInvoker<UnityEngine.EventSystems.EventSystem, UnityEngine.GameObject>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(default(global::UnityEngine.EventSystems.EventSystem), arg0);
 			optimized.Invoke(default(object[]));
 		}
 		

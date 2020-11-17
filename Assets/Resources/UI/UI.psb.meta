@@ -100,7 +100,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 486
+      y: 727
       width: 290
       height: 233
     spriteID: d3bea2f4adde3c9469173c845bd04eb9
@@ -113,7 +113,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -104, y: 329}
+    uvTransform: {x: -104, y: 570}
   - name: Button Pressed
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -158,6 +158,28 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -104, y: 88}
+  - name: Button Selected
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 100, y: 110, z: 100, w: 110}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 486
+      width: 290
+      height: 233
+    spriteID: 7e9a6644150c8ed44b5db7c3b107ee7f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -104, y: 329}
   platformSettings:
   - name: Default
     overridden: 1
@@ -202,13 +224,20 @@ ScriptedImporter:
     spriteID: d9aed041a5fc0e54e8663b0e7daae897
     layerID: 7
     mosaicPosition: {x: 4, y: 245}
+  - name: Button Selected
+    spriteName: Button Selected
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7e9a6644150c8ed44b5db7c3b107ee7f
+    layerID: 8
+    mosaicPosition: {x: 4, y: 486}
   - name: Button
     spriteName: Button
     isGroup: 0
     parentIndex: -1
     spriteID: d3bea2f4adde3c9469173c845bd04eb9
     layerID: 3
-    mosaicPosition: {x: 4, y: 486}
+    mosaicPosition: {x: 4, y: 727}
   characterData:
     bones: []
     parts: []
