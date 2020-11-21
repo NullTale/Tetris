@@ -231,7 +231,7 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
                             m_HillRoot.GetComponent<ApplyForce>().Apply(Vector2.left);
                             break;
                         case Move.Right:
-                            m_HillRoot.GetComponent<ApplyForce>().Apply(Vector2.left);
+                            m_HillRoot.GetComponent<ApplyForce>().Apply(Vector2.right);
                             break;
                     }
 
