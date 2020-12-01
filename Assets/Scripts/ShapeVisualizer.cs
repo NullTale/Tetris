@@ -37,6 +37,8 @@ public class ShapeVisualizer : MonoBehaviour
         }
     }
 
+    //public Vector2 PositionWorld => new Vector2(m_Position.x + 0.5f, m_Position.y + 0.5f);
+
     private Vector2                         m_PositionOffset;
     public Vector2                          PositionOffset
     {

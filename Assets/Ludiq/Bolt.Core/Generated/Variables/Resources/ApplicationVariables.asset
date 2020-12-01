@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ApplicationVariables
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"IsPlaying","value":{"$content":true,"$type":"System.Boolean"},"$version":"A"},{"name":"Playmode","value":{"$content":"AI","$type":"PlayMode"},"$version":"A"},{"name":"StartLevel","value":{"$content":0,"$type":"System.Int32"},"$version":"A"},{"name":"Restart","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _json: '{"declarations":{"collection":{"$content":[{"name":"IsPlaying","value":{"$content":true,"$type":"System.Boolean"},"$version":"A"},{"name":"Playmode","value":{"$content":"AI","$type":"PlayMode"},"$version":"A"},{"name":"StartLevel","value":{"$content":0,"$type":"System.Int32"},"$version":"A"},{"name":"Restart","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"},{"name":"GameOver","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []

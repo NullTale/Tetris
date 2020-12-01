@@ -27,7 +27,6 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
     private List<ShapeVisualizer>                               m_ShapeList = new List<ShapeVisualizer>();
     public List<ShapeVisualizer>                                ShapeList => m_ShapeList;
 
-
     [SerializeField]
     private float                                               m_UnvalidMoveOffset;
 
@@ -42,6 +41,8 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
     private Effect                                              m_Fall;
     [SerializeField] [Foldout("Effects")]
     private Effect                                              m_Collapse;
+    [SerializeField] [Foldout("Effects")]
+    private Effect                                              m_GameOver;
     [SerializeField] [Foldout("Effects")]
     private Effect                                              m_Flash;
     [SerializeField] [Foldout("Effects")] [SoundKey]
@@ -58,6 +59,22 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
     private string                                              m_UnvalidMoveSound;
     [SerializeField] [Foldout("Effects")]
     private GameObject                                          m_HillRoot;
+    [SerializeField] [Foldout("Effects")]
+    private bool                                                m_WaitFallAnimation;
+    [SerializeField] [Foldout("Effects")]
+    private bool                                                m_WaitCollapseAnimation;
+
+    public bool WaitCollapseAnimation
+    {
+        get => m_WaitCollapseAnimation;
+        set => m_WaitCollapseAnimation = value;
+    }
+
+    public bool WaitFallAnimation
+    {
+        get => m_WaitFallAnimation;
+        set => m_WaitFallAnimation = value;
+    }
 
     [SerializeField]
     private GameObject                                          m_Playfield;
@@ -105,6 +122,7 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
             rb.velocity = Vector2.zero;
         }
     }
+
 
     //////////////////////////////////////////////////////////////////////////
     [Serializable]
@@ -286,7 +304,7 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
             } break;
             case BoardEvent.GameOver:
             {
-                SoundManager.Sound.Play(m_GameOverSound);
+                m_CommandSequencer.Push(_GameOver());
             } break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -339,13 +357,22 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
         }
     }
 
+    private IEnumerator _GameOver()
+    {
+        SoundManager.Sound.Play(m_GameOverSound);
+
+        var effect = Instantiate(m_GameOver)
+            .GetModule<ColorizeEffectModule>().Set(GetBlocks().ToList())
+            .Run();
+
+        yield return effect;
+    }
+
     private IEnumerator _Collapse(List<int> rows)
     {
         var blocks = new HashSet<BlockVisualizer>(GetBlocks());
         var collapse = new HashSet<BlockVisualizer>(blocks.Where(n => rows.Contains(n.Position.y)));
 
-        // animation mod on
-        TetrisManager.Instance.Implementation = false;
 
         // update progress
         m_LevelVisualizer.Progress = TetrisManager.Instance.LevelCounter.Progress;
@@ -374,46 +401,76 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
                 break;
         }
 
-        // instantiate & init & run effect
-        yield return Instantiate(m_Collapse)
-            .GetModule<CollapseEffectModule>().Set(collapse, blocks, method)
-            .GetModule<ColorizeEffectModule>().Set(collapse.ToList())
-            .Run();
-        
-        // remove empty shapes
-        _RemoveEmptyShapes();
-        
-        // animation mod off
-        TetrisManager.Instance.Implementation = true;
+        var effect = Instantiate(m_Collapse)
+                     .GetModule<CollapseEffectModule>().Set(collapse, blocks, method)
+                     .GetModule<ColorizeEffectModule>().Set(collapse.ToList())
+                     .Run(() =>
+                     {
+                         // remove empty shapes
+                         _RemoveEmptyShapes();
 
-        // upd board weight
-        _UpdateBoardWeight();
+                         // upd board weight
+                         _UpdateBoardWeight();
+                     });
+
+        if (WaitCollapseAnimation)
+        {
+            // animation mod on
+            TetrisManager.Instance.Implementation = false;
+
+            // instantiate & init & run effect
+            yield return effect;
+
+            // animation mod off
+            TetrisManager.Instance.Implementation = true;
+        }
+        else
+        {
+            StartCoroutine(effect);
+        }
+        
     }
     
     private IEnumerator _Fall(Block block, Move move)
     {
         var shape = ActiveShape;
-        // animation mod on
-        TetrisManager.Instance.Implementation = false;
+        var fallAnimation = m_WaitFallAnimation;
 
         // enable shape trail
         shape.Trail = true;
 
-        // instantiate & init & run effect
-        yield return Instantiate(m_Fall)
-            //.SetSpeed(1.0f / TetrisManager.Instance.StepInterval)
-            .GetModule<ShapeRouteEffectModule>().Set(shape, shape.Position, block.Position.ToVector2Int())
-            .GetModule<ImpulseEffectModule>().Set(shape)
-            .Run();
+        var from = shape.Position;
 
         // move shape
+        shape.PositionOffset = from - block.Position.ToVector2Int();
         shape.OnMove(block, move);
 
-        // add hill impulse
-        //m_HillRoot.GetComponent<ApplyForce>().Apply(new Vector2((shape.Position.x - 5.0f) / 20.0f, -1.0f).normalized);
-        m_HillRoot.GetComponent<ApplyForce>().Apply(Vector2.down);
-        
-        // animation mod off
-        TetrisManager.Instance.Implementation = true;
+        // instantiate & init & run effect
+        var effect =  Instantiate(m_Fall)
+            //.SetSpeed(1.0f / TetrisManager.Instance.StepInterval)
+            .GetModule<ShapeRouteEffectModule>().Set(shape, from, block.Position.ToVector2Int())
+            .GetModule<ImpulseEffectModule>().Set(shape)
+            .Run(() =>
+            {
+                // add hill impulse
+                //m_HillRoot.GetComponent<ApplyForce>().Apply(new Vector2((shape.Position.x - 5.0f) / 20.0f, -1.0f).normalized);
+                m_HillRoot.GetComponent<ApplyForce>().Apply(Vector2.down);
+            });
+
+
+        if (fallAnimation)
+        {
+            // animation mod on
+            TetrisManager.Instance.Implementation = false;
+
+            yield return effect;
+
+            // animation mod off
+            TetrisManager.Instance.Implementation = true;
+        }
+        else
+        {
+            StartCoroutine(effect);
+        }
     }
 }

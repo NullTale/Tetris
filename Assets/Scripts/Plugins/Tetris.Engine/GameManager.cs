@@ -39,7 +39,15 @@ namespace Tetris.Engine
 
         public void OnGameLoopStep()
         {
-            // spawn empty block or move down
+            if (_SpawnBlockOrGameOver()) return;
+
+            boardManager.Move(Move.Down);
+            GameStats.GameStep();
+        }
+
+        private bool _SpawnBlockOrGameOver()
+        {
+            // spawn empty block or game over
             if (boardManager.ActiveBlock == null)
             {
                 if (boardManager.SpawnBlock(m_BlockProvider.SpawnBlock()) == null)
@@ -48,11 +56,10 @@ namespace Tetris.Engine
                     boardManager.EventHandler?.OnGameOver();
                 }
 
-                return;
+                return true;
             }
 
-            boardManager.Move(Move.Down);
-            GameStats.GameStep();
+            return false;
         }
 
         public void CollapseRows(List<int> rows, bool sendEvent = true, bool addStats = true)
@@ -70,6 +77,10 @@ namespace Tetris.Engine
             var result = boardManager.Move(move);
             if (result)
                 GameStats.GameAction();
+
+            if (move == Move.Fall || move == Move.Down)
+                _SpawnBlockOrGameOver();
+
             return result;
         }
     }

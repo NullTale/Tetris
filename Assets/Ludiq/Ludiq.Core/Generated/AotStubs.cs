@@ -33,6 +33,7 @@ namespace Ludiq.Generated.Aot
 	// BoardVisualizer.op_Equality
 	// BoardVisualizer.op_Implicit
 	// BoardVisualizer.op_Inequality
+	// BoardVisualizer.WaitFallAnimation
 	// Bolt.AnimatorMessageListener.op_Equality
 	// Bolt.AnimatorMessageListener.op_Implicit
 	// Bolt.AnimatorMessageListener.op_Inequality
@@ -1061,6 +1062,18 @@ namespace Ludiq.Generated.Aot
 			global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool> optimized = new global::Ludiq.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
 			optimized.Invoke(null, arg0, arg1);
 			optimized.Invoke(default(object[]));
+		}
+		
+		// BoardVisualizer.WaitFallAnimation
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void BoardVisualizer_WaitFallAnimation()
+		{
+			global::BoardVisualizer target = default(global::BoardVisualizer);
+			bool accessor = target.WaitFallAnimation;
+			target.WaitFallAnimation = default(bool);
+			global::Ludiq.InstancePropertyAccessor<BoardVisualizer, bool> optimized = new global::Ludiq.InstancePropertyAccessor<BoardVisualizer, bool>(default(global::System.Reflection.PropertyInfo));
+			optimized.GetValue(default(global::BoardVisualizer));
+			optimized.SetValue(default(global::BoardVisualizer), default(bool));
 		}
 		
 		// Bolt.AnimatorMessageListener.op_Equality

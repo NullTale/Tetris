@@ -29,7 +29,7 @@ public class ShapeRouteEffectModule : ModuleUpdatable
 
     protected override void _Update()
     {
-        m_Shape.PositionOffset = Vector2.LerpUnclamped(m_From, m_To, m_ShapeRoute) - m_From;
+        m_Shape.PositionOffset = Vector2.LerpUnclamped(m_From, m_To, m_ShapeRoute) - m_Shape.Position;
     }
 
     public override void End()

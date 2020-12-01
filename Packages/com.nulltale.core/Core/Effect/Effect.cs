@@ -66,7 +66,7 @@ namespace Core.Effect
             return this;
         }
 
-        public IEnumerator Run()
+        public IEnumerator Run(Action onComplete = null)
         {
             // un pause animator, get animation duration (it could be implemented from animator behaviour or animation event bo it requires more asset knowledge and work)
             m_Animator.speed = m_Speed;
@@ -84,9 +84,14 @@ namespace Core.Effect
                 yield return null;
             }
 
-            // deactivate modules, release effect
+            // deactivate modules
             foreach (var module in Modules)
                 module.End();
+
+            // call on complete
+            onComplete?.Invoke();
+
+            // release effect
             Destroy(gameObject);
         }
 
