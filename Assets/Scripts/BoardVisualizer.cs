@@ -370,8 +370,26 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
 
     private IEnumerator _Collapse(List<int> rows)
     {
-        var blocks = new HashSet<BlockVisualizer>(GetBlocks());
-        var collapse = new HashSet<BlockVisualizer>(blocks.Where(n => rows.Contains(n.Position.y)));
+        // disallow multiply collapses
+        /*if (m_CollapseRunning)
+        {
+            TetrisManager.Instance.Implementation = false;
+            yield return new WaitWhile(() => m_CollapseRunning);
+            TetrisManager.Instance.Implementation = true;
+        }*/
+
+        m_CollapseRunning = true;
+
+        var blocks   = new HashSet<BlockVisualizer>(GetBlocks());
+        var collapse = new HashSet<BlockVisualizer>(blocks.Where(n => rows.Contains(n.Position.y)));;
+
+        foreach (var block in collapse)
+            block.Seize();
+        
+        // remove empty shapes
+        _RemoveEmptyShapes();
+        // upd board weight
+        _UpdateBoardWeight();
 
 
         // update progress
@@ -397,7 +415,9 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
                 method = UnityRandom.RandomFromArray(CollapseEffectModule.Method.FromCenter, CollapseEffectModule.Method.FromSides, CollapseEffectModule.Method.FromTop, CollapseEffectModule.Method.FromButtom);
 
                 // play flash first
+                TetrisManager.Instance.Implementation = false;
                 yield return Instantiate(m_Flash).Run();
+                TetrisManager.Instance.Implementation = true;
                 break;
         }
 
@@ -406,11 +426,6 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
                      .GetModule<ColorizeEffectModule>().Set(collapse.ToList())
                      .Run(() =>
                      {
-                         // remove empty shapes
-                         _RemoveEmptyShapes();
-
-                         // upd board weight
-                         _UpdateBoardWeight();
                      });
 
         if (WaitCollapseAnimation)
@@ -428,11 +443,20 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
         {
             StartCoroutine(effect);
         }
-        
+        m_CollapseRunning = false;
     }
+    private bool    m_CollapseRunning;
     
     private IEnumerator _Fall(Block block, Move move)
     {
+        // disallow fall when collapse happens
+        /*if (m_CollapseRunning)
+        {
+            TetrisManager.Instance.Implementation = false;
+            yield return new WaitWhile(() => m_CollapseRunning);
+            TetrisManager.Instance.Implementation = true;
+        }*/
+
         var shape = ActiveShape;
         var fallAnimation = m_WaitFallAnimation;
 

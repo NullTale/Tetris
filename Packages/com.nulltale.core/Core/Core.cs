@@ -13,11 +13,14 @@ using UnityEngine;
 using Utilities;
 using Action = System.Action;
 using NaughtyAttributes;
+using UnityEngine.Scripting;
 using Object = System.Object;
+
+[assembly:Preserve]
 
 namespace Core
 {
-    [DisallowMultipleComponent, DefaultExecutionOrder(Core.c_ManagerDefaultExecutionOrder)]
+    [DisallowMultipleComponent, DefaultExecutionOrder(-1000)]
     public class Core : MonoBehaviour
     {
         public interface IModule

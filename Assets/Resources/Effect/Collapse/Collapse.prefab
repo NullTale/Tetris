@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 0.7019608}
-  m_Transition: 0.3
+  m_Progress: 0
 --- !u!114 &5714786646335122936
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,8 +1,5 @@
 using System;
 using System.Linq;
-using Core;
-using Ludiq;
-using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;

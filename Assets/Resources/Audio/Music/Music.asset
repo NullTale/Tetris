@@ -37,20 +37,16 @@ MonoBehaviour:
     reqReferences: {fileID: 0}
     isExpanded: 1
     _keyValues:
-    - Orignial
     - Korobeiniki
     - ChunkyMonky
     - 8Bit
     - PolishCow
     _keys:
-    - Orignial
     - Korobeiniki
     - ChunkyMonky
     - 8Bit
     - PolishCow
     _values:
-    - m_Volume: 1
-      m_AudioClip: {fileID: 8300000, guid: 1327823187d47d941be7c4643fd41a29, type: 3}
     - m_Volume: 1
       m_AudioClip: {fileID: 8300000, guid: e772a639eb6f68e4f89d63b1b77ccd44, type: 3}
     - m_Volume: 1

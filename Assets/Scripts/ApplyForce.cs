@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Core;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class ApplyForce : MonoBehaviour
 {

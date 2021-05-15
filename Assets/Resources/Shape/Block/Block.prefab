@@ -258,6 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DestroyList: []
   m_Method: 0
+  m_Delay: 2
 --- !u!114 &8702921528191491714
 MonoBehaviour:
   m_ObjectHideFlags: 0

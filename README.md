@@ -1,5 +1,5 @@
 # Tetris
-Polished Teris, made on Unity 2020.1.</br>
+Polished Teris, made on Unity 2020.</br>
 AI and game logic based on modified [tetris engine](https://github.com/cbpetersen/tetris-engine) by Christoffer Bo Petersen.
 
 [Itch.io web](https://nulltale.itch.io/tetris)

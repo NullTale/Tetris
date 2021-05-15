@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Core;
 using Core.EventSystem;
+using NaughtyAttributes;
 using Tetris.Engine.AI;
 using Tetris.Engine.AI.Algorithms;
 using Tetris.Engine.AI.Algorithms.Weights;
@@ -76,7 +77,6 @@ public class AIAgent : MessageListener<BoardEvent>
     [SerializeField]
     private bool                    m_AutoFall;
 
-    private Move                    m_Move;
     private MovePlan                m_MovePlan;
     private MovePlan                Plan
     {
@@ -88,6 +88,8 @@ public class AIAgent : MessageListener<BoardEvent>
                 m_PrevMove = Tetris.Engine.Move.None;
         }
     }
+
+    public Engine AI => m_AI;
 
     private Tetris.Engine.Move      m_PrevMove = Tetris.Engine.Move.None;
 
@@ -118,7 +120,7 @@ public class AIAgent : MessageListener<BoardEvent>
         m_MovePlan = _GetEmptyPlan();
 
         // disable self
-        enabled = false;
+        //enabled = false;
 
         // activate listener auto connection
         AutoConnect = true;
@@ -165,6 +167,12 @@ public class AIAgent : MessageListener<BoardEvent>
                 Plan = null;
                 break;
         }
+    }
+
+    [Button]
+    public void ReinitAI()
+    {
+        m_AI = new Engine(new TetrisAi(m_AIWeights));
     }
 
     //////////////////////////////////////////////////////////////////////////

@@ -154,6 +154,38 @@ namespace Core
             private IAudioData      m_AudioData;
             public IAudioData       AudioData => m_AudioData;
         }
+        
+        [Serializable]
+        public class AudioDataEx : IAudioData
+        {
+            public Type      m_Type;
+
+            public AudioData AudioData
+            {
+                get
+                {
+                    switch (m_Type)
+                    {
+                        case Type.First:
+                            return m_Sounds.FirstOrDefault();
+                        case Type.Random:
+                            return m_Sounds.RandomItem();
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
+
+            public List<AudioData>  m_Sounds;
+
+            //////////////////////////////////////////////////////////////////////////
+            [Serializable]
+            public enum Type
+            {
+                First,
+                Random,
+            }
+        }
 
         public interface IAudioData
         {
@@ -163,6 +195,7 @@ namespace Core
         [Serializable]
         public class AudioData
         {
+            [Range(0, 1)]
             public float        Volume;
             public AudioClip    Clip;
         }

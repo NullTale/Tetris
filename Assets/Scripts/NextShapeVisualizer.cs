@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Core;
 using Core.EventSystem;
-using Tetris.Engine;
 using UnityEngine;
-using UnityEngine.UI;
 
 [DefaultExecutionOrder(10)]
 public class NextShapeVisualizer : MessageListener<BoardEvent>
@@ -26,6 +22,9 @@ public class NextShapeVisualizer : MessageListener<BoardEvent>
     [DrawIf(nameof(m_Dynamic), true)]
     private GameObject          m_Root;
 
+    public Sprite   m_HatePreview;
+    public Sprite   m_LovePreview;
+
     //////////////////////////////////////////////////////////////////////////
     public override void ProcessMessage(IMessage<BoardEvent> e)
     {
@@ -33,12 +32,23 @@ public class NextShapeVisualizer : MessageListener<BoardEvent>
         {
             case BoardEvent.BlockSpawned:
             {
-                //var block = e.GetData<Block>();
-
-                if (TetrisManager.Instance.BoardVisualizer is BoardVisualizer bv 
-                    && bv.ShapesData.TryGetValue(TetrisManager.Instance.BlockProvider.NextBlock, out var shapeData))
+                if (TetrisManager.Instance.BoardVisualizer is BoardVisualizer bv)
                 {
-                    m_Preview.sprite = shapeData.m_BlockPreview;
+                    switch (TetrisManager.Instance.BlockProvider.Mode)
+                    {
+                        case BlockProvider.RandomMode.Random:
+                            if (bv.ShapesData.TryGetValue(TetrisManager.Instance.BlockProvider.NextBlock, out var shapeData))
+                                m_Preview.sprite = shapeData.m_BlockPreview;
+                            break;
+                        case BlockProvider.RandomMode.Hate:
+                            m_Preview.sprite = m_HatePreview;
+                            break;
+                        case BlockProvider.RandomMode.Love:
+                            m_Preview.sprite = m_LovePreview;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             } break;
             case BoardEvent.CollapseRows:

@@ -1,0 +1,6 @@
+<linker>
+  <assembly fullname="Core" preserve="all" />
+  <assembly fullname="Unity.RenderPipelines.Core.Runtime" preserve="all" />
+  <assembly fullname="Unity.RenderPipelines.Universal.Runtime" preserve="all" />
+  <assembly fullname="SerializableDictionary" preserve="all" />
+</linker>

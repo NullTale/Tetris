@@ -1,13 +1,11 @@
 using System;
-using Core;
-using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
 [Serializable]
 public class BlockVisualizer : MonoBehaviour
 {
-    private static readonly int     c_DestroyTrigger = Animator.StringToHash("Destroy");
+    private static readonly int     k_DestroyTrigger = Animator.StringToHash("Destroy");
 
     [SerializeField]
     private GameObject              m_Anchor;
@@ -62,18 +60,25 @@ public class BlockVisualizer : MonoBehaviour
         
         View.transform.localPosition += transform.localPosition;
         View.transform.SetParent(null, false);
+        transform.SetParent(View.transform, false);
         
         // translate to world position
         m_Anchor.transform.Translate(new Vector3(pos.x, pos.y, 0));
         View.transform.Translate(new Vector3(pos.x, pos.y, 0));
     }
 
-    public void Destroy()
+    public void Seize()
     {
         // remove from shape list
         m_Shape.Blocks.Remove(this);
+    }
 
-        View.GetComponent<Animator>().SetTrigger(c_DestroyTrigger);
+    public void Destroy()
+    {
+        Seize();
+
+        if (View != null)
+            View.GetComponent<Animator>().SetTrigger(k_DestroyTrigger);
         // spawn dust effect
         /*Instantiate(m_DustEffect, View.transform.position, Quaternion.identity);
 

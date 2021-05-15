@@ -45,6 +45,7 @@ public class CollapseEffectModule : ModuleUpdatable
         // save values
         m_Collapse = collapse;
         m_Blocks = blocks;
+        m_Blocks.ExceptWith(m_Collapse);
 
         m_InitialCount = collapse.Count;
 
@@ -135,8 +136,8 @@ public class CollapseEffectModule : ModuleUpdatable
 
         
         // move all top blocks down
-        foreach (var block in m_Blocks.ToDictionary(n => n, n => toDestroy.Count(c => c.Position.x == n.Position.x && c.Position.y < n.Position.y)))
-            block.Key.Position += new Vector2Int(0, -block.Value);
+        foreach (var block in m_Blocks)
+            block.Position += new Vector2Int(0, - toDestroy.Count(destrBlock => destrBlock.Position.x == block.Position.x && destrBlock.Position.y < block.Position.y));
 
         // destroy blocks
         foreach (var block in toDestroy)

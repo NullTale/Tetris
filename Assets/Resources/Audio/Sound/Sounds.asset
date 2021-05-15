@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6394f7b32fb0455dbedccb09885d181d, type: 3}
+  m_Script: {fileID: 11500000, guid: a9fe9a93d279465cac938aa3391100fd, type: 3}
   m_Name: Sounds
   m_EditorClassIdentifier: 
   m_Prefix: s_
@@ -67,116 +67,67 @@ MonoBehaviour:
     - Final
     - Unvalid
     _values:
-    - m_AudioData:
-        id: 0
-    - m_AudioData:
-        id: 1
-    - m_AudioData:
-        id: 2
-    - m_AudioData:
-        id: 3
-    - m_AudioData:
-        id: 4
-    - m_AudioData:
-        id: 5
-    - m_AudioData:
-        id: 6
-    - m_AudioData:
-        id: 7
-    - m_AudioData:
-        id: 8
-    - m_AudioData:
-        id: 9
-    - m_AudioData:
-        id: 10
-    - m_AudioData:
-        id: 11
-    - m_AudioData:
-        id: 12
-    - m_AudioData:
-        id: 13
-  references:
-    version: 1
-    00000000:
-      type: {class: SoundManager/Random, ns: Core, asm: Core}
-      data:
-        m_AudioList:
-        - m_Volume: 1
-          m_AudioClip: {fileID: 8300000, guid: 35c6eaa5e1a26374494d0c9af4da93aa, type: 3}
-        - m_Volume: 1
-          m_AudioClip: {fileID: 8300000, guid: 6f09df281f9beeb4893d8bc3676d1389, type: 3}
-        - m_Volume: 1
-          m_AudioClip: {fileID: 8300000, guid: a7bd3822bf31ca240b3b4b4e6c7a0dc5, type: 3}
-    00000001:
-      type: {class: SoundManager/Random, ns: Core, asm: Core}
-      data:
-        m_AudioList:
-        - m_Volume: 0.16
-          m_AudioClip: {fileID: 8300000, guid: c2eee8aefc470be4b94398dfe3dc3190, type: 3}
-        - m_Volume: 0.16
-          m_AudioClip: {fileID: 8300000, guid: 804f368dee033fb4594cc56fd078e1aa, type: 3}
-        - m_Volume: 0.16
-          m_AudioClip: {fileID: 8300000, guid: 7dfcf8b3b13fb6446a4ee09d9eea209b, type: 3}
-    00000002:
-      type: {class: SoundManager/Random, ns: Core, asm: Core}
-      data:
-        m_AudioList:
-        - m_Volume: 1
-          m_AudioClip: {fileID: 8300000, guid: 06f58a64acb67744db8a1c2913766c26, type: 3}
-    00000003:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 1
-        m_AudioClip: {fileID: 8300000, guid: f66b2406836d35b4fbc80492eff8e3f9, type: 3}
-    00000004:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 1
-        m_AudioClip: {fileID: 8300000, guid: 3b29872382ce3c84dba78cd2218ea2f5, type: 3}
-    00000005:
-      type: {class: SoundManager/Random, ns: Core, asm: Core}
-      data:
-        m_AudioList:
-        - m_Volume: 1
-          m_AudioClip: {fileID: 8300000, guid: ed15915209a004749afcd1f223f1cafc, type: 3}
-    00000006:
-      type: {class: SoundManager/Random, ns: Core, asm: Core}
-      data:
-        m_AudioList:
-        - m_Volume: 1
-          m_AudioClip: {fileID: 8300000, guid: ed15915209a004749afcd1f223f1cafc, type: 3}
-    00000007:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 0.369
-        m_AudioClip: {fileID: 8300000, guid: 6d58a9a4244fc2e42b56bac4e709218e, type: 3}
-    00000008:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 0.75
-        m_AudioClip: {fileID: 8300000, guid: 4e039c6bfcd14744392bbd8a132fe710, type: 3}
-    00000009:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 1
-        m_AudioClip: {fileID: 8300000, guid: 329918b2515df8f43a9a0bac180fd831, type: 3}
-    0000000A:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 0.8
-        m_AudioClip: {fileID: 8300000, guid: 5ed3bb7fdb3b7a048b4a84b2f3c7a828, type: 3}
-    0000000B:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 0.5
-        m_AudioClip: {fileID: 8300000, guid: d7c880fe851ca734296ad7b1f733259c, type: 3}
-    0000000C:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 1
-        m_AudioClip: {fileID: 8300000, guid: a500ebd748488264da09764325c9a537, type: 3}
-    0000000D:
-      type: {class: SoundManager/Clip, ns: Core, asm: Core}
-      data:
-        m_Volume: 0
-        m_AudioClip: {fileID: 8300000, guid: a500ebd748488264da09764325c9a537, type: 3}
+    - m_Type: 1
+      m_Sounds:
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: 35c6eaa5e1a26374494d0c9af4da93aa, type: 3}
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: 6f09df281f9beeb4893d8bc3676d1389, type: 3}
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: a7bd3822bf31ca240b3b4b4e6c7a0dc5, type: 3}
+    - m_Type: 1
+      m_Sounds:
+      - Volume: 0.16
+        Clip: {fileID: 8300000, guid: c2eee8aefc470be4b94398dfe3dc3190, type: 3}
+      - Volume: 0.16
+        Clip: {fileID: 8300000, guid: 804f368dee033fb4594cc56fd078e1aa, type: 3}
+      - Volume: 0.16
+        Clip: {fileID: 8300000, guid: 7dfcf8b3b13fb6446a4ee09d9eea209b, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: 06f58a64acb67744db8a1c2913766c26, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: f66b2406836d35b4fbc80492eff8e3f9, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: 3b29872382ce3c84dba78cd2218ea2f5, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 0.16
+        Clip: {fileID: 8300000, guid: ed15915209a004749afcd1f223f1cafc, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: ed15915209a004749afcd1f223f1cafc, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 0.369
+        Clip: {fileID: 8300000, guid: 6d58a9a4244fc2e42b56bac4e709218e, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 0.75
+        Clip: {fileID: 8300000, guid: 4e039c6bfcd14744392bbd8a132fe710, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: 329918b2515df8f43a9a0bac180fd831, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 0.8
+        Clip: {fileID: 8300000, guid: 5ed3bb7fdb3b7a048b4a84b2f3c7a828, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 0.5
+        Clip: {fileID: 8300000, guid: d7c880fe851ca734296ad7b1f733259c, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 1
+        Clip: {fileID: 8300000, guid: a500ebd748488264da09764325c9a537, type: 3}
+    - m_Type: 0
+      m_Sounds:
+      - Volume: 0
+        Clip: {fileID: 8300000, guid: a500ebd748488264da09764325c9a537, type: 3}

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bolt;
 using Core;
 using Core.EventSystem;
 using RotaryHeart.Lib.SerializableDictionary;

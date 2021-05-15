@@ -36,7 +36,6 @@ namespace Tetris.Engine
         public Position         Position { get; private set; }
         public int              RotationIndex => rotationIndex;
 
-        public virtual bool     Placed { get; set; }
         public int              BlockMatrixSize { get; private set; }
         public int              BlockRotations { get; private set; }
         public BlockType        BlockType { get => blockType; set => blockType = value; }

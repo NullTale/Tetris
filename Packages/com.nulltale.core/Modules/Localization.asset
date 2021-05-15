@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Localization
   m_EditorClassIdentifier: 
   m_LocalizationPath: Localization
-  m_LocalizationLanguage: Auto
+  m_Language: Auto

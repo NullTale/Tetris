@@ -1,10 +1,11 @@
+
 namespace Tetris.Engine.AI
 {
     using System.Collections.Generic;
     using System.Linq;
-
     using Algorithms;
     using Extensions;
+
 
     public class Engine
     {
@@ -81,19 +82,20 @@ namespace Tetris.Engine.AI
             return moves.FirstOrDefault() ?? new Move();
         }
 
-        public IOrderedEnumerable<Move> GetMoves(BoardManager manager)
+        public IOrderedEnumerable<Move> GetMoves(BoardManager manager, Block activeBlock)
         {
             var moves = new List<Move>();
 
-            if (manager.ActiveBlock == null)
+            if (activeBlock == null)
                 return moves.OrderByDescending(x => x.IsValid);
+            activeBlock = activeBlock.Clone();
 
             // enumerate all possible block x positions with rotations, calculate their fitness
             var rowClearings = manager.GameStats.TotalRowClearings;
-            for (var rotation = 0; rotation < manager.ActiveBlock.BlockRotations; rotation++)
+            for (var rotation = 0; rotation < activeBlock.BlockRotations; rotation++)
             for (var column = -2; column < manager.NumberOfColumns; column++)
             {
-                var tempManager = new BoardManager(manager.GameBoard.DeepClone(), manager.ActiveBlock.Clone(), manager.GameStats.Clone(), null);
+                var tempManager = new BoardManager(manager.GameBoard.DeepClone(), activeBlock.Clone(), manager.GameStats.Clone(), null);
                 var tempBlock = tempManager.ActiveBlock.Clone();
 
                 // set rotation
@@ -101,7 +103,7 @@ namespace Tetris.Engine.AI
                     tempBlock.Move(Tetris.Engine.Move.RotateRight);
 
                 // set x position
-                var columnOffset = column - manager.ActiveBlock.Position.Column;
+                var columnOffset = column - activeBlock.Position.Column;
 
                 // create move if appropriate position
                 if (moveBlock())
@@ -139,7 +141,10 @@ namespace Tetris.Engine.AI
             }
 
             return moves.OrderByDescending(x => x.IsValid).ThenBy(x => x.Fitness);
-
+        }
+        public IOrderedEnumerable<Move> GetMoves(BoardManager manager)
+        {
+            return GetMoves(manager, manager.ActiveBlock);
         }
         
         public IEnumerable<MoveCalculation> GetMoveCalculations(BoardManager manager)

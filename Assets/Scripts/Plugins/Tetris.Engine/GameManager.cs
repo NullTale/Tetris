@@ -47,7 +47,10 @@ namespace Tetris.Engine
 
         private bool _SpawnBlockOrGameOver()
         {
-            // spawn empty block or game over
+            if (IsGameOver)
+                return true;
+
+            // game over if cant spawn block
             if (boardManager.ActiveBlock == null)
             {
                 if (boardManager.SpawnBlock(m_BlockProvider.SpawnBlock()) == null)

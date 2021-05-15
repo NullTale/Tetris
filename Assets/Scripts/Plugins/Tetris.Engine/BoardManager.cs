@@ -89,10 +89,7 @@ namespace Tetris.Engine
 
             // calculate position if required
             if (autoPosition)
-            {
-                block.Position.Column = (m_Columns - block.BlockType.BlockDimension()) / 2;
-                block.Position.Row = m_Rows - block.BlockType.BlockDimension();
-            }
+                SetSpawnPosition(block);
 
             if (CanSpawnBlock() == false)
                 return null;
@@ -103,6 +100,12 @@ namespace Tetris.Engine
             EventHandler?.OnBlockSpawned(ActiveBlock);
             
             return ActiveBlock;
+        }
+
+        public void SetSpawnPosition(Block block)
+        {
+            block.Position.Column = (m_Columns - block.BlockType.BlockDimension()) / 2;
+            block.Position.Row = m_Rows - block.BlockType.BlockDimension();
         }
 
         public BoardManager CheckBoard()

@@ -20,6 +20,8 @@ namespace Core
         private List<Object>        m_DestroyList;
         [SerializeField]
         private Method              m_Method;
+        [SerializeField] [DrawIf(nameof(m_Method), Method.Default)]
+        private float               m_Delay;
 
         //////////////////////////////////////////////////////////////////////////
         public void DestroySelf()
@@ -48,7 +50,7 @@ namespace Core
             switch (m_Method)
             {
                 case Method.Default:
-                    Destroy(go);
+                    Destroy(go, m_Delay);
                     break;
                 case Method.Immediate:
                     DestroyImmediate(go);

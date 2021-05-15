@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Core;
 using Core.CommandSystem;
@@ -6,8 +5,11 @@ using NaughtyAttributes;
 using Tetris.Engine;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Scripting;
 using UnityEngine.Tilemaps;
 
+
+[assembly: Preserve]
 
 [RequireComponent(typeof(CommandSequencer))]
 public class TetrisManager : MonoBehaviour
@@ -16,9 +18,6 @@ public class TetrisManager : MonoBehaviour
 
     private GameManager             m_GameManager;
     public GameManager              GameManager => m_GameManager;
-    
-    public Tilemap                  m_TileMap;
-    public Tile                     m_TileBlock;
     private TinyTimer               m_GameStepTimer;
 
     [SerializeField, ReadOnly]
@@ -60,6 +59,8 @@ public class TetrisManager : MonoBehaviour
 
     public float                    SoftDropTimeLeft => m_GameStepTimer.Remainder * (1.0f / m_SoftDropTimeScale);
 
+    [SerializeField]
+    private bool                    m_ImplementationOnStart;
     [SerializeField]
     private bool                    m_Pause;
     public bool                     Pause
@@ -172,17 +173,6 @@ public class TetrisManager : MonoBehaviour
             m_OnGameOverTriggered = true;
             m_OnGameOver.Invoke();
         }
-
-        // draw tilemap
-        if (m_DrawTilemap)
-        {
-            m_TileMap.gameObject.SetActive(true);
-            _DrawTilemap();
-        }
-        else
-        {
-            m_TileMap.gameObject.SetActive(false);
-        }
     }
 
     public static int GetCollisionHeight(List<Vector2Int> shape)
@@ -206,17 +196,6 @@ public class TetrisManager : MonoBehaviour
     }
 
     //////////////////////////////////////////////////////////////////////////
-    [Header("Debug")]
-    public bool                     m_DrawTilemap;
-    public bool                     m_ImplementationOnStart;
-    public int                      m_SetLevel;
-
-    [Button]
-    public void SetLevel()
-    {
-        LevelCounter.Level = m_SetLevel;
-    }
-
     [Button]
     public void StartImplementation()
     {
@@ -227,28 +206,6 @@ public class TetrisManager : MonoBehaviour
     public void PauseImplementation()
     {
         Implementation = false;
-    }
-
-    private void _DrawTilemap()
-    {
-        // clear, redraw tilemap
-        m_TileMap.ClearAllTiles();
-        
-        // draw board state
-        for (var y = 0; y < GameManager.BoardManager.GameBoard.GetLength(0); ++ y)
-            for (var x = 0; x < GameManager.BoardManager.GameBoard[y].GetLength(0); ++ x)
-            {
-                if (GameManager.BoardManager.GameBoard[y][x])
-                    m_TileMap.SetTile(new Vector3Int(x, y, 0), m_TileBlock);
-            }
-        
-        // draw active shape
-        if (GameManager.ActiveBlock != null)
-            for (var y = 0; y < GameManager.ActiveBlock.BlockMatrix.GetLength(0); ++ y)
-                for (var x = 0; x < GameManager.ActiveBlock.BlockMatrix[y].GetLength(0); ++ x)
-                    if (GameManager.ActiveBlock.BlockMatrix[y][x])
-                        m_TileMap.SetTile(new Vector3Int(GameManager.ActiveBlock.Position.Column + x, GameManager.ActiveBlock.Position.Row + y, 0), m_TileBlock);
-                
     }
 
     public void ClearBoard(int level)

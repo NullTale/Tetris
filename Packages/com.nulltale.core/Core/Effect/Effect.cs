@@ -15,18 +15,9 @@ namespace Core.Effect
     [DefaultExecutionOrder(1)]
     public sealed class Effect : MonoBehaviour
     {
-        public interface IModule
-        {
-            Effect Effect { get; set; }
-
-            void Begin();
-            void End();
-        }
-
-        //////////////////////////////////////////////////////////////////////////
         private Animator        m_Animator;
-        private List<IModule>   m_Modules;
-        private List<IModule>   Modules => m_Modules ?? (m_Modules = GetComponentsInChildren<IModule>(true).ToList());
+        private List<ModuleBase>   m_Modules;
+        private List<ModuleBase>   Modules => m_Modules ?? (m_Modules = GetComponentsInChildren<ModuleBase>(true).ToList());
 
         [SerializeField]
         private bool            m_AutoRun;
@@ -50,7 +41,7 @@ namespace Core.Effect
                 StartCoroutine(Run());
         }
 
-        public T GetModule<T>() where T : IModule
+        public T GetModule<T>() where T : ModuleBase
         {
             return (T)Modules.FirstOrDefault(n => n is T);
         }
@@ -117,7 +108,7 @@ namespace Core.Effect
         }
     }
 
-    public abstract class ModuleBase : MonoBehaviour, Effect.IModule
+    public abstract class ModuleBase : MonoBehaviour
     {
         public Effect               Effect { get; set; }
 
