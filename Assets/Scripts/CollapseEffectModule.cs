@@ -30,8 +30,7 @@ public class CollapseEffectModule : ModuleUpdatable
     private Vector2     m_CollapseRange;
     private int         m_InitialCount;
 
-    private HashSet<BlockVisualizer>    m_Collapse;
-    private HashSet<BlockVisualizer>    m_Blocks;
+    private Dictionary<BlockVisualizer, BlockVisualizer[]>            m_Collapse;
 
     //////////////////////////////////////////////////////////////////////////
     public Effect Set(HashSet<BlockVisualizer> collapse, HashSet<BlockVisualizer> blocks, Method method)
@@ -43,11 +42,16 @@ public class CollapseEffectModule : ModuleUpdatable
     public Effect Set(HashSet<BlockVisualizer> collapse, HashSet<BlockVisualizer> blocks)
     {
         // save values
-        m_Collapse = collapse;
-        m_Blocks = blocks;
-        m_Blocks.ExceptWith(m_Collapse);
+        m_Collapse = collapse.ToDictionary(key => key, toCollapse => blocks.Where(block => block.Position.x == toCollapse.Position.x && block.Position.y > toCollapse.Position.y).ToArray());
 
         m_InitialCount = collapse.Count;
+
+        // move all top blocks down
+        foreach (var block in m_Collapse.Values.SelectMany(n => n))
+        {
+            block.Position += Vector2Int.down;
+            block.PositionOffset += Vector2.up;
+        }
 
         return Effect;
     }
@@ -55,7 +59,10 @@ public class CollapseEffectModule : ModuleUpdatable
     public override void Begin()
     {
         m_BoardLenght = TetrisManager.Instance.GameManager.BoardManager.NumberOfColumns * 1.0f;
-        m_CollapseRange = new Vector2(m_Collapse.Min(n => n.Anchor.transform.localPosition.y) - 0.5f, m_Collapse.Max(n => n.Anchor.transform.localPosition.y) + 0.5f);
+        m_CollapseRange = new Vector2(m_Collapse.Keys.Min(n => n.Anchor.transform.localPosition.y) - 0.5f, m_Collapse.Keys.Max(n => n.Anchor.transform.localPosition.y) + 0.5f);
+
+        
+
         base.Begin();
     }
 
@@ -71,19 +78,19 @@ public class CollapseEffectModule : ModuleUpdatable
                 var halfLenght = m_BoardLenght * 0.5f;
                 var deadRange = new Vector2(halfLenght - halfLenght * m_Progress, halfLenght + halfLenght * m_Progress);
 
-                toDestroy = m_Collapse.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.x)).ToList();
+                toDestroy = m_Collapse.Keys.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.x)).ToList();
             } break;
             case Method.FromSides:
             {
                 var halfLenght = m_BoardLenght * 0.5f;
                 var deadRange = new Vector2(halfLenght - halfLenght * (1.0f - m_Progress), halfLenght + halfLenght * (1.0f - m_Progress));
 
-                toDestroy = m_Collapse.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.x) == false).ToList();
+                toDestroy = m_Collapse.Keys.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.x) == false).ToList();
             } break;
             case Method.Immediate:
             {
                 if (m_Progress >= 1.0f)
-                    toDestroy = m_Collapse.ToList();
+                    toDestroy = m_Collapse.Keys.ToList();
             } break;
             case Method.Random:
             {
@@ -97,7 +104,7 @@ public class CollapseEffectModule : ModuleUpdatable
                 toDestroy = new List<BlockVisualizer>(toDestroyCount);
 
                 // take random items from collapse
-                var collapseList = m_Collapse.ToList();
+                var collapseList = m_Collapse.Keys.ToList();
                 for (var n = 0; n < toDestroyCount; n++)
                 {
                     var randomItem = collapseList.RandomItem();
@@ -108,23 +115,23 @@ public class CollapseEffectModule : ModuleUpdatable
             case Method.FromLeft:
             {
                 var deadRange = new Vector2(0.0f, m_BoardLenght * m_Progress);
-                toDestroy = m_Collapse.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.x)).ToList();
+                toDestroy = m_Collapse.Keys.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.x)).ToList();
 
             } break;
             case Method.FromRight:
             {
                 var deadRange = new Vector2(m_BoardLenght * (1.0f - m_Progress), m_BoardLenght);
-                toDestroy = m_Collapse.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.x)).ToList();
+                toDestroy = m_Collapse.Keys.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.x)).ToList();
             } break;
             case Method.FromTop:
             {
                 var deadRange = new Vector2(m_CollapseRange.x + (m_CollapseRange.y - m_CollapseRange.x) * (1.0f - m_Progress), m_CollapseRange.y);
-                toDestroy = m_Collapse.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.y)).ToList();
+                toDestroy = m_Collapse.Keys.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.y)).ToList();
             } break;
             case Method.FromButtom:
             {
                 var deadRange = new Vector2(m_CollapseRange.x + (m_CollapseRange.y - m_CollapseRange.x) * m_Progress, m_CollapseRange.y);
-                toDestroy = m_Collapse.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.y)).ToList();
+                toDestroy = m_Collapse.Keys.Where(n => deadRange.InRangeOfInc(n.Anchor.transform.localPosition.y)).ToList();
             } break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -134,17 +141,15 @@ public class CollapseEffectModule : ModuleUpdatable
         if (toDestroy == null || toDestroy.Count == 0)
             return;
 
-        
-        // move all top blocks down
-        foreach (var block in m_Blocks)
-            block.Position += new Vector2Int(0, - toDestroy.Count(destrBlock => destrBlock.Position.x == block.Position.x && destrBlock.Position.y < block.Position.y));
-
         // destroy blocks
         foreach (var block in toDestroy)
-            block.Destroy();
+        {
+            foreach (var toMoveDown in m_Collapse[block])
+                toMoveDown.PositionOffset += Vector2.down;
 
-        // remove from collections
-        m_Collapse.ExceptWith(toDestroy);
-        m_Blocks.ExceptWith(toDestroy);
+            m_Collapse.Remove(block);
+
+            block.Destroy();
+        }
     }
 }

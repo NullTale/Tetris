@@ -381,7 +381,7 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
         m_CollapseRunning = true;
 
         var blocks   = new HashSet<BlockVisualizer>(GetBlocks());
-        var collapse = new HashSet<BlockVisualizer>(blocks.Where(n => rows.Contains(n.Position.y)));;
+        var collapse = new HashSet<BlockVisualizer>(blocks.Where(n => rows.Contains(n.Position.y)));
 
         foreach (var block in collapse)
             block.Seize();
@@ -466,7 +466,6 @@ public class BoardVisualizer : MessageListener<BoardEvent>, TetrisManager.IBoard
         var from = shape.Position;
 
         // move shape
-        shape.PositionOffset = from - block.Position.ToVector2Int();
         shape.OnMove(block, move);
 
         // instantiate & init & run effect

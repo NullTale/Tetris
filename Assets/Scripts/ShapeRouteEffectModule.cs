@@ -7,11 +7,8 @@ public class ShapeRouteEffectModule : ModuleUpdatable
     [Range(-0.5f, 1.5f)]
     public float                m_ShapeRoute;
 
-    [SerializeField]
-    private Vector2             m_From;
-    [SerializeField]
-    private Vector2             m_To;
-    private Vector2             m_Initial;
+    private Vector2             m_Distance;
+    private Vector2             m_Influence;
 
     [SerializeField]
     private ShapeVisualizer     m_Shape;
@@ -21,9 +18,9 @@ public class ShapeRouteEffectModule : ModuleUpdatable
     {
         // set values
         m_Shape = shape;
-        m_From = from;
-        m_To = to;
-        m_Initial = m_Shape.Position;
+        m_Distance = to - from;
+        
+        shape.PositionOffset -= m_Distance;
 
         // return effect
         return Effect;
@@ -31,13 +28,16 @@ public class ShapeRouteEffectModule : ModuleUpdatable
 
     protected override void _Update()
     {
-        m_Shape.PositionOffset = Vector2.LerpUnclamped(m_From, m_To, m_ShapeRoute) - m_Initial;
+        var influenceLast = m_Influence;
+        m_Influence = m_Distance * m_ShapeRoute;
+        var offset = m_Influence - influenceLast;
+        m_Shape.PositionOffset += offset;
     }
 
     public override void End()
     {
         // restore offset
-        m_Shape.PositionOffset = Vector2.zero;
+        m_Shape.PositionOffset += m_Distance - m_Influence;
 
         base.End();
     }

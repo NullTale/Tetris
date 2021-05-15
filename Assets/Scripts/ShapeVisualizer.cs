@@ -43,10 +43,12 @@ public class ShapeVisualizer : MonoBehaviour
         get => m_PositionOffset;
         set
         {
-            m_PositionOffset = value;
+            var offset = value - m_PositionOffset;
             // set blocks offset
             foreach (var element in m_Blocks)
-                element.PositionOffset = m_PositionOffset;
+                element.PositionOffset += offset;
+
+            m_PositionOffset = value;
         }
     }
 
