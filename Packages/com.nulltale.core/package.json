@@ -6,12 +6,9 @@
   "description": "Personal core library",
   "author": {
     "name": "NullTale",
-    "email": "n12holwingshame@gmail.com",
+    "email": "nulltale@gmail.com",
     "url": "https://twitter.com/nulltale"
   },
   "type": "library",
-  "dependencies": {
-    "com.unity.textmeshpro": ""
-  },
   "hideInEditor": false
 }
